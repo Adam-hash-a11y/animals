@@ -22,4 +22,3 @@ app.post("/adam", (req, res) => {
   console.log(req.body);
   res.json(req.body);
 });
- 
