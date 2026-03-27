@@ -18,7 +18,7 @@ export type SocialStructure = "solitary" | "pair";
 
 export type Animal = {
   id: string;
-  commonName: string;
+  Name: string;
   group: AnimalGroup;
   colors: Color[];
   habitats: Habitat[];
@@ -29,7 +29,7 @@ export type Animal = {
 
 export const eagle: Animal = {
   id: "bird1",
-  commonName: "Eagle",
+  Name: "Eagle",
   group: "bird",
   colors: ["white", "brown"],
   habitats: ["forest", "freshwater"],
@@ -44,7 +44,7 @@ export const eagle: Animal = {
 
 export const cheetah: Animal = {
   id: "chetaah1",
-  commonName: "Cheetah",
+  Name: "Cheetah",
   group: "mammal",
   colors: ["brown"],
   habitats: ["desert"],
