@@ -36,5 +36,8 @@
   "overrides": {
     "brace-expansion": "^2.0.1",
     "minimatch": "^9.0.0"
+  },
+  "dependencies": {
+    "dotenv": "^17.3.1"
   }
 }
