@@ -22,7 +22,4 @@ app.post("/adam", (req, res) => {
   console.log(req.body);
   res.json(req.body);
 });
-
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+ 
