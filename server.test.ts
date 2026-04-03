@@ -16,7 +16,6 @@ describe("GET /", () => {
 
   it("should return Hello world ", async () => {
     // When
-
     const response = await request(app).get("/");
 
     // Then
