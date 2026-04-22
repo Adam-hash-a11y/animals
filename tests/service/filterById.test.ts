@@ -1,4 +1,4 @@
-import { filterById } from "../../personServices";
+import { filterById } from "../../src/service/personServices";
 
 describe("test filterById function", () => {
   test("should return the element that matches the given Id", () => {
@@ -6,11 +6,9 @@ describe("test filterById function", () => {
     const id = 12;
 
     //When
-
     const result = filterById(id);
 
     //Then
-
     expect(result).toStrictEqual([
       {
         age: 8,
@@ -26,11 +24,9 @@ describe("test filterById function", () => {
     const id = 20;
 
     //When
-
     const result = filterById(id);
 
     //Then
-
     expect(result).toStrictEqual([]);
   });
   test("should return an empty array if id is negative", () => {
