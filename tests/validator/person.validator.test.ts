@@ -8,6 +8,7 @@ import {
   isValidKeys,
   isValidName,
   isValidType,
+  isValidQueryParams,
 } from "../../src/validator/person.validator";
 
 describe("test isValidId validator function", () => {
@@ -346,5 +347,73 @@ describe("isExistingPerson", () => {
 
     // Then
     expect(result).toBe(true);
+  });
+});
+
+describe("test isValidQueryParams validtor function", () => {
+  it("should return true when both gender and type are provided", () => {
+    // Given
+    const query = { gender: "male", type: "kid" };
+
+    // When
+    const result = isValidQueryParams(query);
+
+    // Then
+    expect(result).toBe(true);
+  });
+
+  it("should return true when only gender is provided", () => {
+    // Given
+    const query = { gender: "male" };
+
+    // When
+    const result = isValidQueryParams(query);
+
+    // Then
+    expect(result).toBe(true);
+  });
+
+  it("should return true when only type is provided", () => {
+    // Given
+    const query = { type: "kid" };
+
+    // When
+    const result = isValidQueryParams(query);
+
+    // Then
+    expect(result).toBe(true);
+  });
+
+  it("should return true when no params are provided", () => {
+    // Given
+    const query = {};
+
+    // When
+    const result = isValidQueryParams(query);
+
+    // Then
+    expect(result).toBe(true);
+  });
+
+  it("should return false when an unknown param is provided", () => {
+    // Given
+    const query = { gendr: "male" };
+
+    // When
+    const result = isValidQueryParams(query);
+
+    // Then
+    expect(result).toBe(false);
+  });
+
+  it("should return false when an extra unknown param is mixed with valid ones", () => {
+    // Given
+    const query = { gender: "male", type: "kid", extra: "abc" };
+
+    // When
+    const result = isValidQueryParams(query);
+
+    // Then
+    expect(result).toBe(false);
   });
 });
