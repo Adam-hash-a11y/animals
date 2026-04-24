@@ -38,3 +38,18 @@ export const getPeopleStats = (): {
     "Number of women": women,
   };
 };
+
+export const getFilteredPersons = (gender?: string, type?: string) => {
+  return personList.filter((person) => {
+    if (gender && type) {
+      return person.gender === gender && person.type === type;
+    }
+    if (gender) {
+      return person.gender === gender;
+    }
+    if (type) {
+      return person.type === type;
+    }
+    return true;
+  });
+};

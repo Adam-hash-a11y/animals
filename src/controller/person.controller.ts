@@ -3,6 +3,7 @@ import {
   filterById,
   addPerson,
   getPeopleStats,
+  getFilteredPersons,
 } from "../service/personServices";
 import {
   isExisitingPerson,
@@ -11,6 +12,7 @@ import {
   isValidId,
   isValidKeys,
   isValidName,
+  isValidQueryParams,
   isValidType,
 } from "../validator/person.validator";
 
@@ -63,5 +65,28 @@ export const addPersons = (req: Request, res: Response) => {
 
 export const getStats = (req: Request, res: Response) => {
   const result = getPeopleStats();
+  return res.status(200).json(result);
+};
+
+export const getPersons = (req: Request, res: Response) => {
+  if (!isValidQueryParams(req.query)) {
+    return res.status(400).json({ message: "invalid query params" });
+  }
+  //Validate correct Query params then deconsstructor
+  const { gender, type } = req.query as { gender?: string; type?: string };
+
+  if (gender && !isValidGender(gender)) {
+    return res.status(400).json({ message: "gender must be male or female" });
+  }
+  if (type && !isValidType(type)) {
+    return res.status(400).json({ message: "type must be kid, men or women" });
+  }
+
+  const result = getFilteredPersons(gender, type);
+  if (result.length == 0) {
+    return res
+      .status(200)
+      .json({ message: "found no people with the matching criterias" });
+  }
   return res.status(200).json(result);
 };

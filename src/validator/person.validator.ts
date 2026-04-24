@@ -9,8 +9,17 @@ export const isValidBody = (body: Person): boolean => {
     isValidId(body.id) &&
     isValidName(body.name) &&
     isValidType(body.type) &&
-    isValidKeys(body) 
+    isValidKeys(body)
   );
+};
+
+export const isValidQueryParams = (query: Record<string, unknown>): boolean => {
+  for (const key of Object.keys(query)) {
+    if (key != "gender" && key != "type") {
+      return false;
+    }
+  }
+  return true;
 };
 
 export const isValidKeys = (body: Person): boolean => {
@@ -33,8 +42,8 @@ export const isValidKeys = (body: Person): boolean => {
     body.age == null ||
     body.age == undefined ||
     body.type == null ||
-    body.type == undefined||
-    body.type == null||
+    body.type == undefined ||
+    body.type == null ||
     body.type == undefined
   ) {
     return false;
@@ -56,7 +65,6 @@ export const isValidType = (type: string): boolean => {
 };
 
 export const isValidId = (id: number) => {
-  
   return Number.isInteger(id) && id > 0;
 };
 

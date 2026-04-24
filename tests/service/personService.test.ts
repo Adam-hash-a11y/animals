@@ -2,6 +2,7 @@ import { personList } from "../../src/data/personData";
 import {
   addPerson,
   filterById,
+  getFilteredPersons,
   getPeopleStats,
 } from "../../src/service/personServices";
 import { GENDER, TYPE } from "../../src/types/person.type";
@@ -103,5 +104,68 @@ describe("test getPeopleStats service function", () => {
 
     // Then
     expect(total).toBe(personList.length);
+  });
+});
+
+describe("test getFilteredPersons service function", () => {
+  it("should return people matching both gender and type", () => {
+    // Given
+    const gender = GENDER.male;
+    const type = TYPE.kid;
+
+    // When
+    const result = getFilteredPersons(gender, type);
+
+    // Then
+    for (const person of result) {
+      expect(person.gender).toBe(gender);
+      expect(person.type).toBe(type);
+    }
+  });
+
+  it("should return people matching gender only", () => {
+    // Given
+    const gender = GENDER.male;
+
+    // When
+    const result = getFilteredPersons(gender);
+
+    // Then
+    for (const person of result) {
+      expect(person.gender).toBe(gender);
+    }
+  });
+
+  it("should return people matching type only", () => {
+    // Given
+    const type = TYPE.kid;
+
+    // When
+    const result = getFilteredPersons(undefined, type);
+
+    // Then
+    for (const person of result) {
+      expect(person.type).toBe(type);
+    }
+  });
+
+  it("should return all people when no params provided", () => {
+    // When
+    const result = getFilteredPersons();
+
+    // Then
+    expect(result.length).toBe(personList.length);
+  });
+
+  it("should return empty array when no match found", () => {
+    // Given
+    const gender = GENDER.male;
+    const type = TYPE.women;
+
+    // When
+    const result = getFilteredPersons(gender, type);
+
+    // Then
+    expect(result).toStrictEqual([]);
   });
 });
