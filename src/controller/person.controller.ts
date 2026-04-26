@@ -4,6 +4,7 @@ import {
   addPerson,
   getPeopleStats,
   getFilteredPersons,
+  deletePerson,
 } from "../service/personServices";
 import {
   isExisitingPerson,
@@ -28,6 +29,20 @@ export const findPersonById = (req: Request<{ id: string }>, res: Response) => {
   } else {
     return res.status(200).json(result);
   }
+};
+
+export const deletePersonById = (req: Request, res: Response) => {
+  const userId = Number(req.params.id);
+  if (!isValidId(userId)) {
+    return res
+      .status(400)
+      .json({ message: "invalid id, the id must be a number" });
+  }
+  if (isExisitingPerson(userId)) {
+    return res.status(404).json({ message: "person not found" });
+  }
+  const result = deletePerson(userId);
+  return res.status(200).json(result);
 };
 
 export const addPersons = (req: Request, res: Response) => {
