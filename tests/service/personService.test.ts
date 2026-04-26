@@ -1,6 +1,7 @@
-import { personList } from "../../src/data/personData";
+import { originalData, personList } from "../../src/data/personData";
 import {
   addPerson,
+  deletePerson,
   filterById,
   getFilteredPersons,
   getPeopleStats,
@@ -167,5 +168,35 @@ describe("test getFilteredPersons service function", () => {
 
     // Then
     expect(result).toStrictEqual([]);
+  });
+});
+
+describe("test deletePerson service function", () => {
+  beforeEach(() => {
+    personList.length = 0;
+    personList.push(...originalData);
+  });
+  it("should remove the person with the given id from the list", () => {
+    // Given
+    const id = 12;
+
+    // When
+    const result = deletePerson(id);
+
+    // Then
+    expect(result.find((p) => p.id === id)).toBeUndefined();
+  });
+
+  it("should return the list unchanged when id does not exist", () => {
+    // Given
+    const id = 99999;
+    const lengthBefore = personList.length;
+
+    // When
+    const result = deletePerson(id);
+
+    // Then
+    expect(result.find((p) => p.id === id)).toBeUndefined();
+    expect(result.length).toBe(lengthBefore);
   });
 });
