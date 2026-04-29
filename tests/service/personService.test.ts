@@ -106,6 +106,15 @@ describe("test getPeopleStats service function", () => {
     // Then
     expect(total).toBe(personList.length);
   });
+  it("should return numeric values for all counts", () => {
+    // When
+    const result = getPeopleStats();
+
+    // Then
+    expect(typeof result["Number of kids"]).toBe("number");
+    expect(typeof result["Number of men"]).toBe("number");
+    expect(typeof result["Number of women"]).toBe("number");
+  });
 });
 
 describe("test getFilteredPersons service function", () => {
